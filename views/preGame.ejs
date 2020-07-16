@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+  <title>Tanks</title>
+
+  <link rel="stylesheet" href="/client/css/menu.css" />
+  <link rel="icon" href="images/favicon.png" />
+
+  <script>
+    const socket = io();
+
+    window.onload = function (event) {
+      var playerId = document.getElementById("playerId").getAttribute("playerInfo");
+      var gameId = document.getElementById("gameId").getAttribute("gameId");
+      socket.emit("inPreGame", {gameId: gameId, playerId: playerId});
+    };
+
+    socket.on("playerList", function(data){
+      let playerList = data.playerList;
+      let playerTable = document.getElementById("playerTable");
+      playerTable.innerHTML = "<tr><th>No.</th><th>Player</th></tr>";
+      let counter = 1;
+      for(const player of playerList){
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + counter + ".</td><td id="+ player.id +">" + player.name + "</td>";     
+        playerTable.appendChild(tr);
+        counter++;
+      }
+
+      if(data.canStart === true){
+        document.getElementById("startGame").submit();
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <h3 id="playerId" playerInfo=<%= playerId %>>Player id: <%= playerId %></h3>
+  <h3 id="gameId" gameId=<%= gameId %>>Game id: <%= gameId %></h3>
+  <div id="menuFrame">
+    <h3>Players:</h3>
+      <table id="playerTable">
+        <tr>
+          <th>No.</th>
+          <th>Player</th>
+        </tr>
+      </table>
+  </div>
+
+  <form method="post" action="/game" id="startGame">
+    <input type="hidden" id="formInputGameId" name="gameId" value=<%= gameId %>>
+    <input type="hidden" id="formInputPlayerId" name="playerId" value=<%= playerId %>>
+  </form>
+</body>
+
+</html>

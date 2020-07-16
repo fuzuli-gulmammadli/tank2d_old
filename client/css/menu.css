@@ -1,0 +1,19 @@
+body {
+  background-color: #D2D2D2;
+}
+
+#menuFrame{
+  height: 200px;
+  width: 500px;
+  position: fixed;
+  border: 2px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#startGameDiv{
+  border: 1px solid green; 
+  background-color:green; 
+  color: white
+}

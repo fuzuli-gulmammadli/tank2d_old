@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+  <title>Tanks</title>
+
+  <link rel="stylesheet" href="/client/css/menu.css" />
+  <link rel="icon" href="images/favicon.png" />
+</head>
+
+<body>
+  <div id="menuFrame">
+    <h1>Enter your name</h1>
+
+    <form method="post" action="/menu">
+      <label for="fname">Name:</label>
+      <input type="text" id="playerName" name="playerName"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</body>
+
+</html>

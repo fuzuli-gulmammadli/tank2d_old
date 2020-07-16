@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+  <title>Tanks</title>
+
+  <link rel="stylesheet" href="/client/css/menu.css" />
+  <link rel="icon" href="images/favicon.png" />
+
+  <script>
+    const socket = io();
+
+    window.onload = function (event) {
+      var playerId = document.getElementById("playerId").getAttribute("playerInfo");
+      socket.emit("inLobby", {playerId: playerId});
+    };
+
+    socket.on("gameList", function(data){
+      let gameList = data.gameList;
+      let gameTable = document.getElementById("gameTable");
+      gameTable.innerHTML = "<tr><th>Players</th><th>Action</th></tr>";
+      for(const i in gameList){
+        const game = gameList[i];
+
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + game.players + "</td><td id="+ game.id +" onmouseover=\"inputGameIdToForm(this.id)\" onclick=\"submitJoinGameForm(this.id)\">join</td>";
+        
+        gameTable.appendChild(tr);
+      }
+    });
+
+    function inputGameIdToForm(gameId){
+      let formInputGameId = document.getElementById("formInputGameId");
+      formInputGameId.setAttribute("value", gameId);
+      console.log(gameId);
+    }
+
+    function submitJoinGameForm(){
+      document.getElementById("joinGame").submit();
+    }
+  </script>
+</head>
+
+<body>
+  <h3 id="playerId" playerInfo=<%= playerId %>>Player id: <%= playerId %></h3>
+  <div id="menuFrame">
+    <h3>Games:</h3>
+    <table id="gameTable">
+      <tr>
+        <th>Players</th>
+        <th>Action</th>
+      </tr>
+    </table>
+  </div>
+
+  <form method="post" action="/preGame" id="joinGame">
+    <input type="hidden" id="formInputGameId" name="gameId">
+    <input type="hidden" id="formInputPlayerId" name="playerId" value=<%= playerId %>>
+  </form>
+</body>
+
+</html>

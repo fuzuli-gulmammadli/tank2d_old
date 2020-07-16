@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+  <title>Tanks</title>
+
+  <link rel="stylesheet" href="/client/css/menu.css" />
+  <link rel="icon" href="images/favicon.png" />
+
+  <script src="/client/js/LobbyEvent.js"></script>
+</head>
+
+<body>
+  <div id="menuFrame">
+    <h3 id="playerId">Player id: <%= data %></h3>
+    <!-- <h3 id="playerName">Player name: <%= data.playerName %></h3> -->
+
+    <form method="post" action="/gameCreator">
+      <input type="submit" value="Create game">
+    </form>
+
+    <form method="post" action="/lobby">
+        <input type="submit" value="Join game">
+    </form>
+  </div>
+</body>
+
+</html>

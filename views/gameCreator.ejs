@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+
+  <title>Tanks</title>
+
+  <link rel="stylesheet" href="/client/css/menu.css" />
+  <link rel="icon" href="images/favicon.png" />
+</head>
+
+<body>
+  <div id="menuFrame">
+    <h1>Enter your name</h1>
+    <h3 id="playerId" playerInfo=<%= playerId %>>Player id: <%= playerId %></h3>
+
+    <form method="post" action="/preGame">
+      <label for="privacy">Privacy:</label>
+      <select id="privacy" name="privacy">
+        <option value="public">public</option>
+        <option value="private">private</option>
+      </select>
+
+      <label for="maxPlayers">Maximum players:</label>
+      <select id="maxPlayers" name="maxPlayers">
+        <option value="2">2</option>
+        <option value="4">4</option>
+      </select>
+
+      <input type="hidden" name="playerId" value=<%= playerId %>>
+      <input type="submit" value="Create game">
+    </form>
+  </div>
+</body>
+
+</html>
