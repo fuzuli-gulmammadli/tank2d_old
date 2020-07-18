@@ -1,6 +1,6 @@
 class Interpolation {
 
-  static interpolateMissile(missile0, missile1, startTime, endTime, destructionTime, timeDelta){
+  static interpolateMissile(missile0, missile1, startTime, endTime, destructionTime, timeDelta, latency){
 
     const Vector2d = vector2d.exports;
 
@@ -11,7 +11,7 @@ class Interpolation {
 
     const movementVector = pos1.subtract(pos0);
     const currentTime = (new Date().getTime() - timeDelta) - (endTime - startTime);
-    const  timeDiff = (currentTime - startTime) / (endTime - startTime);
+    const  timeDiff = (currentTime - startTime + latency) / (endTime - startTime);
 
     var newPos = movementVector.multiplyByNumber(timeDiff);
     newPos = newPos.add(pos0);
@@ -25,7 +25,7 @@ class Interpolation {
     };
   }
 
-  static interpolateTank(tank0, tank1, startTime, endTime, timeDelta){
+  static interpolateTank(tank0, tank1, startTime, endTime, timeDelta, latency){
 
     const Vector2d = vector2d.exports;
     const Utils = utils.exports;
@@ -37,7 +37,7 @@ class Interpolation {
 
     const movementVector = pos1.subtract(pos0);
     const currentTime = (new Date().getTime() - timeDelta) - (endTime - startTime);
-    const timeDiff = (currentTime - startTime) / (endTime - startTime);
+    const timeDiff = (currentTime - startTime + latency) / (endTime - startTime);
 
     let newPos = movementVector.multiplyByNumber(timeDiff);
     let angleDiff = Utils.getAngleDifference(angle0, angle1);

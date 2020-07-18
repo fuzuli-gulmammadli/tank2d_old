@@ -54,7 +54,6 @@
 
   socket.on("gameUpdate", function (data) {
     gameUpdates = data.gameUpdates;
-    console.log(gameUpdates);
   });
 
   setInterval(function () {
@@ -129,7 +128,7 @@
 
         let tank1 = tanks1.filter(t => t.entity.id === tank0.entity.id)[0];
         //get new tank position
-        let newPos = Interpolation.interpolateTank(tank0, tank1, gameUpdates[0].timeSent, gameUpdates[1].timeSent, timeDelta);
+        let newPos = Interpolation.interpolateTank(tank0, tank1, gameUpdates[0].timeSent, gameUpdates[1].timeSent, timeDelta, latencyMean);
         let newTank = newPos.tank;
         let newTurret = newPos.turret;
 
@@ -232,7 +231,7 @@
         }
 
         if (missile1) {
-          let newMissilePos = Interpolation.interpolateMissile(missile0, missile1, gameUpdates[0].timeSent, gameUpdates[1].timeSent, missile1.destructionTime, timeDelta);
+          let newMissilePos = Interpolation.interpolateMissile(missile0, missile1, gameUpdates[0].timeSent, gameUpdates[1].timeSent, missile1.destructionTime, timeDelta, latencyMean);
           let doCollide = false;
           for (const entity of currentEntities) {
             doCollide = Utils.checkCollision(newMissilePos, entity);
