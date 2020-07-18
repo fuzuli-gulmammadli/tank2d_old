@@ -531,7 +531,7 @@ setInterval(function(){
         const gameStartTime = game.startTime;
         const currentTime = new Date().getTime();
         const secondsPassedFromStart = (currentTime - gameStartTime) / 1000;
-        if (secondsPassedFromStart > 3) {
+        if (secondsPassedFromStart > 10) {
           canStart = true;
           game.status = GameStatus.JOINING;
         }
