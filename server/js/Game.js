@@ -18,7 +18,6 @@ class Game {
     }
 
     startGame(){
-        this.status = GameStatus.STARTED;
         let x = 100;
         let step = 100;
 

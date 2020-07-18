@@ -124,18 +124,22 @@ io.on("connection", function(socket){
     socket.join(data.gameId);
     var player = players[data.playerId];
     player.socket = socket;
+    var game = games[gameId];
+    if(game.status !== GameStatus.STARTED){
+      game.status = GameStatus.STARTED
+    }
   });
 
   socket.on("disconnect", function(data){
     const gameLocation = socket.gameLocation;
     if(gameLocation === "lobby"){
-    }else if(gameLocation === "preGame"){
+    }else if(gameLocation === "preGame" || gameLocation === "game"){
       const gameId = socket.gameId;
       const playerId = socket.playerId;
       let game = games[gameId];
       let player = players[playerId];
       if(!Utils.isUndefinedOrNull(game) && !Utils.isUndefinedOrNull(player)){
-        if(game.status === GameStatus.PREGAME){
+        if(game.status === GameStatus.PREGAME || game.status === GameStatus.STARTED){
           game.players = game.players.filter(p => p.id !== playerId);
 
           if(game.players.length <= 0){
